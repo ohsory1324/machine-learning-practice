@@ -1,0 +1,14 @@
+{
+  "name": "machine-learning-practice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Yungoo Kong <ohsory1324@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}
