@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 const { learn, AND, OR, NAND, XOR } = require('./perceptron');
 
