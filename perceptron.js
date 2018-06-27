@@ -25,7 +25,7 @@ const XOR = (x1, x2) => {
   return AND(s1, s2);
 };
 
-const step = x => x >= 0.5 ? 1 : 0;
+const step = x => x >= 0 ? 1 : 0;
 const sigmoid = x => 1 / (1 + Math.exp(-x));
 
 const learn = ({

@@ -36,14 +36,14 @@ const { w, b } = learn({
     y,
   },
   log: true,
-  activation: activation.sigmoid,
-  n: 1,
-  steps: 5,
+  n: 0.1,
+  steps: 10,
 });
 
 fs.writeFileSync('./result.txt', '');
 x.forEach((eachX, i) => {
-  const sigmaWX = eachX.map((columnX, columnIndex) => columnX * w[columnIndex]).reduce((total, eachWX) => total + eachWX, 0);
-  const yh = activation.sigmoid(sigmaWX + b);
+  const sigmaWX = eachX.map((columnX, columnIndex) => columnX * w[columnIndex])
+    .reduce((total, eachWX) => total + eachWX, 0);
+  const yh = activation.step(sigmaWX + b);
   fs.appendFileSync('./result.txt', `${yh},${y[i]}\n`);
 });
