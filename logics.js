@@ -6,22 +6,22 @@ const checkZeroOrOne = (x1, x2) => {
 
 const AND = (x1, x2) => {
   checkZeroOrOne(x1, x2);
-  return x1 && x2;
+  return x1 && x2 ? 1 : -1;
 };
 
 const OR = (x1, x2) => {
   checkZeroOrOne(x1, x2);
-  return x1 || x2;
+  return x1 || x2 ? 1 : -1;
 };
 
 const NAND = (x1, x2) => {
   checkZeroOrOne(x1, x2);
-  return +!(x1 && x2);
+  return !(x1 && x2) ? 1 : -1;
 };
 
 const XOR = (x1, x2) => {
-  const s1 = NAND(x1, x2);
-  const s2 = OR(x1, x2);
+  const s1 = NAND(x1, x2) === 1 ? 1 : 0;
+  const s2 = OR(x1, x2) === 1 ? 1 : 0;
   return AND(s1, s2);
 };
 

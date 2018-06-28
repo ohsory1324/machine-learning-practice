@@ -29,7 +29,7 @@ class Perceptron {
         const sigmaWX = eachX
           .map((columnX, columnIndex) => columnX * this.w[columnIndex])
           .reduce((total, eachWX) => total + eachWX, 0);
-        const yh = activation(sigmaWX + this.b);
+        const yh = sigmaWX + this.b;
         const correction = n * (this.y[i] - yh);
   
         this.w = this.w.map((columnW, columnIndex) => columnW + eachX[columnIndex] * correction);

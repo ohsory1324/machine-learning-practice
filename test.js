@@ -1,12 +1,13 @@
 const fs = require('fs');
 
 const Perceptron = require('./perceptron');
-const { step } = require('./activations');
+const { step, sigmoid } = require('./activations');
+const { AND } = require('./logics');
 
 const x = [];
 const y = [];
 const yMatch = {
-  'Iris-setosa': 0,
+  'Iris-setosa': -1,
   'Iris-versicolor': 1,
 };
 
@@ -21,8 +22,9 @@ fs.readFileSync('./data/iris.csv', 'utf8')
 const perceptron = new Perceptron({ x, y });
 perceptron.learn({
   log: true,
-  n: 0.1,
-  steps: 10,
+  n: 0.01,
+  steps: 50,
+  activation: sigmoid,
 });
 
 fs.writeFileSync('./result.txt', '');
@@ -33,3 +35,4 @@ x.forEach((eachX, i) => {
   const yh = step(sigmaWX + perceptron.b);
   fs.appendFileSync('./result.txt', `${yh},${y[i]}\n`);
 });
+
