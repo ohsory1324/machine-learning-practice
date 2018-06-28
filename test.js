@@ -1,8 +1,7 @@
 const fs = require('fs');
 
 const Perceptron = require('./perceptron');
-const { step, sigmoid } = require('./activations');
-const { AND } = require('./logics');
+const { step } = require('./activations');
 
 const x = [];
 const y = [];
@@ -24,7 +23,6 @@ perceptron.learn({
   log: true,
   n: 0.01,
   steps: 50,
-  activation: sigmoid,
 });
 
 fs.writeFileSync('./result.txt', '');
@@ -35,4 +33,3 @@ x.forEach((eachX, i) => {
   const yh = step(sigmaWX + perceptron.b);
   fs.appendFileSync('./result.txt', `${yh},${y[i]}\n`);
 });
-

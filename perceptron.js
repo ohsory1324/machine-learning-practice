@@ -1,5 +1,3 @@
-const { step } = require('./activations');
-
 class Perceptron {
   constructor(data) {
     const { x, y } = data || {};
@@ -16,7 +14,6 @@ class Perceptron {
 
   learn({
     steps = 1000,
-    activation = step,
     log = false,
     n = 0.01,
   }) {
