@@ -1,19 +1,7 @@
 const fs = require('fs');
 
-const { learn, AND, OR, NAND, XOR, activation } = require('./perceptron');
-
-// const x = [[0, 0], [0, 1], [1, 0], [1, 1]];
-// const y = x.map(input => XOR(...input));
-// const { w, b } = learn({
-//   data: {
-//     x,
-//     y,
-//   },
-//   log: true,
-//   activation: activation.sigmoid,
-//   n: 0.01,
-//   steps: 10000,
-// });
+const Perceptron = require('./perceptron');
+const { step } = require('./activations');
 
 const x = [];
 const y = [];
@@ -30,11 +18,8 @@ fs.readFileSync('./data/iris.csv', 'utf8')
     x.push(columns.map(eachColumn => +eachColumn));
   });
 
-const { w, b } = learn({
-  data: {
-    x,
-    y,
-  },
+const perceptron = new Perceptron({ x, y });
+perceptron.learn({
   log: true,
   n: 0.1,
   steps: 10,
@@ -42,8 +27,9 @@ const { w, b } = learn({
 
 fs.writeFileSync('./result.txt', '');
 x.forEach((eachX, i) => {
-  const sigmaWX = eachX.map((columnX, columnIndex) => columnX * w[columnIndex])
+  const sigmaWX = eachX
+    .map((columnX, columnIndex) => columnX * perceptron.w[columnIndex])
     .reduce((total, eachWX) => total + eachWX, 0);
-  const yh = activation.step(sigmaWX + b);
+  const yh = step(sigmaWX + perceptron.b);
   fs.appendFileSync('./result.txt', `${yh},${y[i]}\n`);
 });
