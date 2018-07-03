@@ -74,7 +74,7 @@ describe('learn perceptron', () => {
       perceptron.learn({
         log: true,
         n: 0.01,
-        steps: 200,
+        steps: 100,
         activation: step,
       });
       inputs.forEach((input) => {
@@ -90,7 +90,7 @@ describe('learn perceptron', () => {
       perceptron.learn({
         log: true,
         n: 0.01,
-        steps: 200,
+        steps: 100,
         activation: step,
       });
       inputs.forEach((input) => {
@@ -106,7 +106,7 @@ describe('learn perceptron', () => {
       perceptron.learn({
         log: true,
         n: 0.01,
-        steps: 200,
+        steps: 100,
         activation: step,
       });
       inputs.forEach((input) => {

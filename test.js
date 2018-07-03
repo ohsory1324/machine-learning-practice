@@ -22,7 +22,7 @@ const perceptron = new Perceptron({ x, y });
 perceptron.learn({
   log: true,
   n: 0.01,
-  steps: 50,
+  steps: 20,
 });
 
 fs.writeFileSync('./result.txt', '');

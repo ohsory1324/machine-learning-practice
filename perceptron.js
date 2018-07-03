@@ -1,3 +1,5 @@
+const { step } = require('./activations');
+
 class Perceptron {
   constructor(data) {
     const { x, y } = data || {};
@@ -16,6 +18,7 @@ class Perceptron {
     steps = 1000,
     log = false,
     n = 0.01,
+    activation = step,
   }) {
     let error = 0;
     let yhList = [];
@@ -26,7 +29,7 @@ class Perceptron {
         const sigmaWX = eachX
           .map((columnX, columnIndex) => columnX * this.w[columnIndex])
           .reduce((total, eachWX) => total + eachWX, 0);
-        const yh = sigmaWX + this.b;
+        const yh = activation(sigmaWX + this.b);
         const correction = n * (this.y[i] - yh);
   
         this.w = this.w.map((columnW, columnIndex) => columnW + eachX[columnIndex] * correction);
