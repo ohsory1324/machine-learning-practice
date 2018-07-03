@@ -1,17 +1,9 @@
-const { step } = require('./activations');
+const Perceptron = require('./perceptron');
+const { linear } = require('./activations');
 
-class Perceptron {
+class AdaptiveLinearNeuron extends Perceptron {
   constructor(data) {
-    const { x, y } = data || {};
-    if (!x || !y) {
-      throw new Error('Invalid Data!');
-    }
-    const { w: wInit, b: bInit } = data || {};
-
-    this.x = x;
-    this.y = y;
-    this.w = wInit || x[0].map(() => Math.random() * 2 - 1);
-    this.b = bInit || 1;
+    super(data);
   }
 
   learn({
@@ -22,16 +14,20 @@ class Perceptron {
     let error = 0;
     let yhList = [];
     let count = 0;
-  
+
     while (count < steps) {
       this.x.forEach((eachX, i) => {
         const sigmaWX = eachX
           .map((columnX, columnIndex) => columnX * this.w[columnIndex])
           .reduce((total, eachWX) => total + eachWX, 0);
-        const yh = step(sigmaWX + this.b);
+        const yh = linear(sigmaWX + this.b);
         const correction = n * (this.y[i] - yh);
   
-        this.w = this.w.map((columnW, columnIndex) => columnW + eachX[columnIndex] * correction);
+        this.w = this.w.map((columnW, columnIndex) => {
+          const gradientCorrection = this.x.reduce((total, eachX, i) => total + ((sigmaWX + this.b) - this.y[i]) * eachX[columnIndex], 0);
+          console.log(gradientCorrection);
+          return columnW + eachX[columnIndex] * gradientCorrection
+        });
         this.b += correction;
         error += Math.abs(yh - this.y[i]);
         yhList.push(yh);
@@ -60,4 +56,4 @@ class Perceptron {
   }
 }
 
-module.exports = Perceptron;
+module.exports = AdaptiveLinearNeuron;
