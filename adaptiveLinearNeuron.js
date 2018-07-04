@@ -1,5 +1,4 @@
 const Perceptron = require('./perceptron');
-const { linear } = require('./activations');
 
 class AdaptiveLinearNeuron extends Perceptron {
   constructor(data) {
@@ -20,14 +19,10 @@ class AdaptiveLinearNeuron extends Perceptron {
         const sigmaWX = eachX
           .map((columnX, columnIndex) => columnX * this.w[columnIndex])
           .reduce((total, eachWX) => total + eachWX, 0);
-        const yh = linear(sigmaWX + this.b);
+        const yh = sigmaWX + this.b;
         const correction = n * (this.y[i] - yh);
   
-        this.w = this.w.map((columnW, columnIndex) => {
-          const gradientCorrection = this.x.reduce((total, eachX, i) => total + ((sigmaWX + this.b) - this.y[i]) * eachX[columnIndex], 0);
-          console.log(gradientCorrection);
-          return columnW + eachX[columnIndex] * gradientCorrection
-        });
+        this.w = this.w.map((columnW, columnIndex) => columnW + eachX[columnIndex] * correction);
         this.b += correction;
         error += Math.abs(yh - this.y[i]);
         yhList.push(yh);

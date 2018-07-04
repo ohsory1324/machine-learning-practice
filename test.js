@@ -25,11 +25,12 @@ fs.readFileSync('./data/iris.csv', 'utf8')
 //   n: 0.01,
 //   steps: 20,
 // });
+
 const adalian = new AdaptiveLinearNeuron({ x, y });
 adalian.learn({
   log: true,
-  n: 0.0001,
-  steps: 20,
+  n: 0.01,
+  steps: 10,
 });
 
 fs.writeFileSync('./result.txt', '');
