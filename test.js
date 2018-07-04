@@ -26,8 +26,8 @@ fs.readFileSync('./data/iris.csv', 'utf8')
 //   steps: 20,
 // });
 
-const adalian = new AdaptiveLinearNeuron({ x, y });
-adalian.learn({
+const adaline = new AdaptiveLinearNeuron({ x, y });
+adaline.learn({
   log: true,
   n: 0.01,
   steps: 10,
@@ -36,8 +36,8 @@ adalian.learn({
 fs.writeFileSync('./result.txt', '');
 x.forEach((eachX, i) => {
   const sigmaWX = eachX
-    .map((columnX, columnIndex) => columnX * adalian.w[columnIndex])
+    .map((columnX, columnIndex) => columnX * adaline.w[columnIndex])
     .reduce((total, eachWX) => total + eachWX, 0);
-  const yh = step(sigmaWX + adalian.b);
+  const yh = step(sigmaWX + adaline.b);
   fs.appendFileSync('./result.txt', `${yh},${y[i]}\n`);
 });
